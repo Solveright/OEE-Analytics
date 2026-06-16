@@ -38,9 +38,8 @@ flowchart TB
         Throughput["Throughput Metrics"]
         Quality["Quality KPIs"]
     end
-
     OPC --> KEP
-    KEP --> EH
+    KEP -. Ingestion .-> EH
     EH --> STREAM
 
     STREAM --> Bronze
