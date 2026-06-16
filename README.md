@@ -26,7 +26,7 @@ flowchart TB
         STREAM["Databricks Structured Streaming"]
     end
 
-    subgraph Lakehouse["Databricks Lakehouse"]
+    subgraph Lakehouse[" "]
         Bronze["Bronze<br/>Raw Telemetry"]
         Silver["Silver<br/>Curated Telemetry"]
         Gold["Gold<br/>Production KPIs"]
