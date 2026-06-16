@@ -14,40 +14,54 @@
 
 ### 🏗️ Solution Architecture
 ```mermaid
-flowchart TB
+flowchart TD
 
-    subgraph OT["Operational Technology"]
+    subgraph OT[" "]
+        OT_LABEL["Operational Technology"]
         OPC["OPC UA Simulator"]
-        KEP["Kepware"]
+        Kepware["Kepware"]
+
+        OT_LABEL --> OPC
+        OPC --> Kepware
     end
 
-    subgraph Ingestion[" "]
+    subgraph ING[" "]
+        ING_LABEL["Ingestion"]
         EH["Azure Event Hub"]
-        STREAM["Databricks Structured Streaming"]
+        DSS["Databricks Structured Streaming"]
+
+        ING_LABEL --> EH
+        EH --> DSS
     end
 
-    subgraph Lakehouse[" "]
+    subgraph LH[" "]
+        LH_LABEL["Lakehouse"]
+
         Bronze["Bronze<br/>Raw Telemetry"]
         Silver["Silver<br/>Curated Telemetry"]
         Gold["Gold<br/>Production KPIs"]
+
+        LH_LABEL --> Bronze
+        Bronze --> Silver
+        Silver --> Gold
     end
 
-    subgraph Analytics["Analytics"]
+    subgraph AN[" "]
+        AN_LABEL["Analytics"]
+
         OEE["OEE Dashboard"]
-        Downtime["Downtime Analysis"]
+        Down["Downtime Analysis"]
         Throughput["Throughput Metrics"]
         Quality["Quality KPIs"]
-    end
-    OPC --> KEP
-    KEP -. Ingestion .-> EH
-    EH --> STREAM
 
-    STREAM -. Lakehouse .-> Bronze
-    Bronze --> Silver
-    Silver --> Gold
+        AN_LABEL --> OEE
+    end
+
+    Kepware --> EH
+    DSS --> Bronze
 
     Gold --> OEE
-    Gold --> Downtime
+    Gold --> Down
     Gold --> Throughput
     Gold --> Quality
 ```
