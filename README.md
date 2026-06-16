@@ -42,7 +42,7 @@ flowchart TB
     KEP -. Ingestion .-> EH
     EH --> STREAM
 
-    STREAM --> Bronze
+    STREAM -. Lakehouse .-> Bronze
     Bronze --> Silver
     Silver --> Gold
 
